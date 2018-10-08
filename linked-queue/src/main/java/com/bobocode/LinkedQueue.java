@@ -35,7 +35,6 @@ public class LinkedQueue<T> implements Queue<T> {
         }
     }
 
-
     /**
      *
      * Adding element to LinkedQueue, if it's full create a new array with bigger capacity.
