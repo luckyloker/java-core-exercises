@@ -5,6 +5,7 @@ package com.bobocode;
  *
  * @param <T> a generic parameter
  */
+
 public class LinkedQueue<T> implements Queue<T> {
     private Object[] elements;
     private int size;
