@@ -7,94 +7,55 @@ package com.bobocode;
  */
 
 public class LinkedQueue<T> implements Queue<T> {
-    private Object[] elements;
+
+    private Node<T> tail;
+    private Node<T> head;
     private int size;
-    private static final int DEFAULT_CAPACITY = 10;
 
-    /**
-     *
-     * Constructs LinkedQueue with default capacity;
-     *
-     */
+    private class Node<T> {
+        T element;
+        Node<T> next;
 
-    LinkedQueue() {
-        elements = new Object[DEFAULT_CAPACITY];
-    }
-
-    /**
-     *
-     * Constructs LinkedQueue with custom capacity;
-     *
-     */
-
-    LinkedQueue(int capacity) {
-        if (capacity < 0) {
-            elements = new Object[size];
-        }
-        else {
-            throw new IllegalArgumentException("Size can't be negative: " + size);
+        private Node(T element) {
+            this.element = element;
         }
     }
-
-    /**
-     *
-     * Adding element to LinkedQueue, if it's full create a new array with bigger capacity.
-     *
-     */
 
     @Override
     public void add(T element) {
-        if (size < elements.length) {
-        elements[size] = element;
+        Node<T> tempNode = new Node<>(element);
+        if(isEmpty()) {
+            head = tempNode;
         }
-        else
-            {
-            Object[] temp = new Object[(size()*3)/2 + 1];
-            System.arraycopy(elements, 0, temp, 0, size());
-            elements = temp;
-            elements[size] = element;
+        else {
+            tail.next = tempNode;
         }
+        tail = tempNode;
         size++;
-
     }
-
-    /**
-     *
-     * Poll element from LinkedQueue and shift queue with System.arraycopy;
-     * If queue is empty return null;
-     */
 
     @Override
     public T poll() {
-        T element = null;
-        if(size() != 0) {
-            element = (T) elements[0];
-            System.arraycopy(elements, 1, elements, 0, size()-1);
+        if(!isEmpty()) {
+            T element = head.element;
+            head = head.next;
             size--;
-
+            return element;
         }
-        return element;
-    }
+        else {
+            return null;
+        }
 
-    /**
-     *
-     * Return size() of LinkedQueue;
-     *
-     */
+    }
 
     @Override
     public int size() {
         return size;
     }
 
-    /**
-     *
-     * Check LinkedQueue, if it's empty return true;
-     *
-     */
-
     @Override
     public boolean isEmpty() {
         return size == 0;
     }
 }
+
