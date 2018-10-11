@@ -157,13 +157,12 @@ public class LinkedList<T> implements List<T> {
        if (size == 0) {
            return false;
        }
-       do {
+        while (indexNode != null) {
            if(indexNode.element.equals(element)) {
                return true;
            }
            indexNode = indexNode.next;
        }
-        while (indexNode.next != null);
        return false;
     }
 
